@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import { products } from '../data/product';
 
 export default function Cart({ cartItemCount, cartItems, onAddToCart, onUpdateQuantity, onRemoveItem, onClearCart }) {
@@ -133,6 +134,7 @@ export default function Cart({ cartItemCount, cartItems, onAddToCart, onUpdateQu
           </section>
         )}
       </div>
+      <Footer />
     </div>
   );
 }

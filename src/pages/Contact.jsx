@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 export default function Contact({ cartItemCount }) {
   const [isSent, setIsSent] = useState(false);
@@ -36,6 +37,7 @@ export default function Contact({ cartItemCount }) {
           )}
         </form>
       </div>
+      <Footer />
     </div>
   );
 }

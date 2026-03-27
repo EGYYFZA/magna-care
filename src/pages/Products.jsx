@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
 import { products } from '../data/product';
 
@@ -22,6 +23,7 @@ export default function Products({ cartItemCount, onAddToCart }) {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
