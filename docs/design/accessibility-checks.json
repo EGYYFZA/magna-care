@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-25",
+  "status": "pass",
+  "scope": "Sampled gallery contrast and original-card focus; keyboard, dialog, swipe, reduced motion and 44px controls additionally checked by check-storefront.mjs. Not a full WCAG audit.",
+  "results": [
+    {
+      "selector": ".gallery-home",
+      "color": "rgb(23, 24, 22)",
+      "background": "rgb(255, 255, 255)",
+      "contrast": 17.82,
+      "minimum": 4.5
+    },
+    {
+      "selector": ".visible-nav a:nth-child(2)",
+      "color": "rgb(112, 113, 107)",
+      "background": "rgb(255, 255, 255)",
+      "contrast": 4.93,
+      "minimum": 4.5
+    },
+    {
+      "selector": ".gallery-caption >span:last-child",
+      "color": "rgb(115, 116, 110)",
+      "background": "rgb(255, 255, 255)",
+      "contrast": 4.72,
+      "minimum": 4.5
+    },
+    {
+      "selector": ".orbit-product-actions .orbit-add",
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(23, 24, 22)",
+      "contrast": 17.82,
+      "minimum": 4.5
+    },
+    {
+      "name": "Focused original product 0 is visible",
+      "x": 105.3046875,
+      "width": 179.390625,
+      "window": 390,
+      "scroll": 0
+    },
+    {
+      "name": "Focused original product 1 is visible",
+      "x": 105.3046875,
+      "width": 179.390625,
+      "window": 390,
+      "scroll": 0
+    },
+    {
+      "name": "Focused original product 2 is visible",
+      "x": 105.3046875,
+      "width": 179.390625,
+      "window": 390,
+      "scroll": 0
+    },
+    {
+      "name": "Decorative repeated panels cannot take keyboard focus",
+      "status": "pass"
+    }
+  ]
+}

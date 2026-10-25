@@ -1,0 +1,54 @@
+{
+  "contract": "gallery-direction.md — current one-viewport circular 3D gallery contract",
+  "date": "2026-10-25",
+  "targetViewports": ["390x844", "1440x900"],
+  "accessibility": {
+    "status": "pass",
+    "evidence": "Native original-product buttons, visible mobile navigation, keyboard arrows, native dialog/Escape/focus return, skip link, 44px controls and reduced motion were tested. Decorative repeated panels are non-focusable aria-hidden divs. Each original card was focused and observed centered at x=105.30px, width=179.39px in a 390px viewport. Sampled gallery text/action contrast is 17.82:1, inactive navigation 4.93:1, secondary label 4.72:1. See accessibility-checks.json. This is a scoped browser check, not a full screen-reader or WCAG audit."
+  },
+  "responsive": {
+    "status": "pass",
+    "evidence": "Home occupies exactly one viewport at 1440x900 and 390x844. The gallery, clear header links, product metadata and controls reflow on mobile. No horizontal overflow was found at 320px, 390px or 1440px across the original routes. A landscape Home check covers 844x390. The long editorial hero, articles and footer are absent on Home."
+  },
+  "contentStates": {
+    "loading": {
+      "status": "pass",
+      "evidence": "Local font and product images load into reserved square 3D panels; original product images were observed loaded at both target viewports. The scene is interactive without a fake loading counter. Three.js scene/camera/renderer establish actual perspective matrix3d transforms."
+    },
+    "empty": {
+      "status": "pass",
+      "evidence": "Existing unmatched search, empty health category and empty cart retain recovery actions; the same-page product list contains all three current catalog products."
+    },
+    "error": {
+      "status": "pass",
+      "evidence": "Blocked image requests replace both ring panels for the affected product with named clickable placeholders; product selection and metadata remain available. Unknown product URL and the standalone product-image fallback still work. See ring-image-unavailable.png."
+    },
+    "partial": {
+      "status": "pass",
+      "evidence": "A mixed saved cart with valid old entries, null, unknown IDs, negative quantities and tampered metadata preserves the valid quantity and restores canonical catalog price/name. Three unique products remain three despite repeated visual panels."
+    },
+    "success": {
+      "status": "pass",
+      "evidence": "Ring selection, wheel, mouse drag, touch swipe, keyboard arrows and quick repeated next commands were asserted. Motion snaps and stops at rest. Product details open in a native dialog; Escape returns focus; add closes the dialog and updates the existing bag without leaving Home. Existing cart persistence, quantities and subtotal tests pass."
+    },
+    "permission": {
+      "status": "pass",
+      "evidence": "Denied localStorage produces the session-only storage notice on Home while adding to the in-memory bag still works. The notice does not grow the single-viewport layout. See ring-storage-unavailable.png."
+    }
+  },
+  "renderedEvidence": [
+    {"viewport":"1440x900","artifact":"ring-1440.png","observation":"White single-screen composition with the original Magna Care SVG logo, visible navigation and six perspective panels representing three catalog products; square front card and oblique/rear panels follow the reference gallery geometry."},
+    {"viewport":"390x844","artifact":"ring-390.png","observation":"Mobile gallery fills one screen. Only the selected product type appears above centered shopping buttons; gallery controls are centered underneath. The product-name picker and exploration hint are absent."},
+    {"viewport":"390x844","artifact":"ring-product-dialog-390.png","observation":"Product details appear in a native modal on Home with a close control, product photo, name, price and working add action."},
+    {"viewport":"390x844","artifact":"ring-list-390.png","observation":"The Products navigation option shows all three products in a compact list on the same Home route."},
+    {"viewport":"320x812","artifact":"ring-image-unavailable.png","observation":"Image failure preserves ring geometry, product names and controls through an accessible fallback."},
+    {"viewport":"320x812","artifact":"ring-storage-unavailable.png","observation":"Storage denial shows a session-only notice while retaining the gallery and bag action."},
+    {"viewport":"844x390","artifact":"ring-844-landscape.png","observation":"Landscape Home remains one viewport; the short-height layout retains the product metadata, add action and navigation controls."}
+  ],
+  "limits": [
+    "The catalog still contains three sample products. Repeated visual panels close the ring; no extra inventory or prices were invented.",
+    "No live stock, orders, shipping calculation, payment, account or message-delivery backend was added.",
+    "Reference composition, DOM transforms and interaction were inspected and recreated with original code. Visual acceptance and exact similarity remain for the user to judge.",
+    "Tested in Chromium with emulated touch/mobile sizes. Safari, Firefox and physical devices were not tested. CSS3DRenderer documents its own browser/display-zoom limitations."
+  ]
+}

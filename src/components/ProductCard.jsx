@@ -1,19 +1,38 @@
+import { Link } from 'react-router-dom';
+import { ArrowUpRight, Plus } from 'lucide-react';
+import { formatPrice } from '../data/product';
+import ProductImage from './ProductImage';
+
 export default function ProductCard({ product, onAddToCart }) {
   return (
-    <div className="flex flex-col items-center rounded-lg border border-gray-100 bg-white p-4 shadow-sm sm:p-6">
-      <div className="mb-4 flex h-56 w-full items-center justify-center overflow-hidden rounded-md bg-gray-100 sm:h-64">
-        <img src={product.image} alt={product.name} className="object-cover h-full w-full" referrerPolicy="no-referrer" />
-      </div>
-      <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
-      <p className="text-sm text-gray-500 mb-2">{product.description}</p>
-      <p className="text-md font-bold text-gray-900 mb-4">IDR {product.price.toLocaleString('id-ID')}</p>
-      <button
-        type="button"
-        className="w-full rounded bg-[#e86e1c] py-2 font-medium text-white transition-colors hover:bg-[#d56115]"
-        onClick={() => onAddToCart(product)}
+    <article className="product-card">
+      <Link
+        to={`/products/${product.id}`}
+        className="product-media"
+        aria-label={`Lihat ${product.name}`}
       >
-        Add to Cart
-      </button>
-    </div>
+        <span className="product-index eyebrow">{product.step}</span>
+        <ProductImage product={product} />
+        <span className="product-view">
+          <ArrowUpRight size={20} aria-hidden="true" />
+        </span>
+      </Link>
+      <div className="product-caption">
+        <div>
+          <p className="eyebrow muted">{product.categoryLabel}</p>
+          <h3>
+            <Link to={`/products/${product.id}`}>{product.name}</Link>
+          </h3>
+          <p className="product-price">{formatPrice(product.price)}</p>
+        </div>
+        <button
+          className="icon-button add-button"
+          onClick={() => onAddToCart(product)}
+          aria-label={`Tambah ${product.name} ke keranjang`}
+        >
+          <Plus size={21} aria-hidden="true" />
+        </button>
+      </div>
+    </article>
   );
 }

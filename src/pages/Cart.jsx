@@ -1,140 +1,130 @@
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import { products } from '../data/product';
+import { ArrowRight, ArrowUpRight, Minus, Plus, ShoppingBag, Trash2 } from 'lucide-react';
+import ProductCard from '../components/ProductCard';
+import ProductImage from '../components/ProductImage';
+import { products, formatPrice } from '../data/product';
 
-export default function Cart({ cartItemCount, cartItems, onAddToCart, onUpdateQuantity, onRemoveItem, onClearCart }) {
-  const navigate = useNavigate();
+export default function Cart({ cartItems, onAddToCart, onUpdateQuantity, onRemoveItem }) {
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const recommendedProducts = products.filter(
+  const recommended = products.filter(
     (product) => !cartItems.some((item) => item.id === product.id),
   );
-
   return (
-    <div className="min-h-screen bg-[#f8f9fa] font-sans">
-      <Navbar cartItemCount={cartItemCount} />
-      <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-        <h1 className="text-3xl font-bold text-[#1e3a5f] mb-8">Your Cart</h1>
-
-        {cartItems.length === 0 ? (
-          <div className="rounded-lg border border-gray-200 bg-white p-8 text-center text-gray-500 shadow-sm">
-            Your cart is currently empty.{' '}
-            <Link to="/products" className="font-medium text-[#1e3a5f] underline">
-              Explore products
-            </Link>
-            .
-          </div>
-        ) : (
-          <div className="space-y-4">
+    <div className="shell cart-page">
+      <div className="breadcrumb eyebrow">
+        <Link to="/">BERANDA</Link>
+        <span>/</span>
+        <span>YOUR BAG</span>
+      </div>
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow muted">A LITTLE SOMETHING FOR YOU.</p>
+          <h1>
+            Your care bag<span className="heading-dot">.</span>
+          </h1>
+        </div>
+        <Link className="text-link" to="/products">
+          Lanjut jelajah <ArrowUpRight size={18} aria-hidden="true" />
+        </Link>
+      </div>
+      {cartItems.length ? (
+        <div className="cart-layout">
+          <section aria-label="Produk di keranjang" className="cart-items">
+            <div className="cart-table-heading eyebrow">
+              <span>PRODUK</span>
+              <span>JUMLAH / TOTAL</span>
+            </div>
             {cartItems.map((item) => (
-              <div
-                key={item.id}
-                className="grid grid-cols-1 gap-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:grid-cols-[110px_1fr_auto] sm:items-center"
-              >
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="h-24 w-full rounded-md object-cover sm:h-20 sm:w-24"
-                  referrerPolicy="no-referrer"
-                />
-
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900">{item.name}</h3>
-                  <p className="text-sm text-gray-500">IDR {item.price.toLocaleString('id-ID')}</p>
+              <article key={item.id} className="cart-item">
+                <Link to={`/products/${item.id}`} className="cart-image">
+                  <ProductImage product={item} />
+                </Link>
+                <div className="cart-item-info">
+                  <p className="eyebrow muted">{item.categoryLabel}</p>
+                  <h2>
+                    <Link to={`/products/${item.id}`}>{item.name}</Link>
+                  </h2>
+                  <p>{formatPrice(item.price)}</p>
+                  <div className="quantity-control">
+                    <button
+                      className="icon-button"
+                      aria-label={`Kurangi jumlah ${item.name}`}
+                      disabled={item.quantity <= 1}
+                      onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
+                    >
+                      <Minus size={15} aria-hidden="true" />
+                    </button>
+                    <span aria-label={`Jumlah ${item.name}: ${item.quantity}`}>
+                      {item.quantity}
+                    </span>
+                    <button
+                      className="icon-button"
+                      aria-label={`Tambah jumlah ${item.name}`}
+                      onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+                    >
+                      <Plus size={15} aria-hidden="true" />
+                    </button>
+                  </div>
                 </div>
-
-                <div className="flex items-center gap-2 sm:justify-end">
+                <div className="cart-line-total">
+                  <p>{formatPrice(item.price * item.quantity)}</p>
                   <button
-                    type="button"
-                    className="rounded border border-gray-300 px-3 py-1 text-sm"
-                    onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
-                  >
-                    -
-                  </button>
-                  <span className="min-w-8 text-center font-medium">{item.quantity}</span>
-                  <button
-                    type="button"
-                    className="rounded border border-gray-300 px-3 py-1 text-sm"
-                    onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
-                  >
-                    +
-                  </button>
-                  <button
-                    type="button"
-                    className="ml-2 rounded px-3 py-1 text-sm text-red-500 hover:bg-red-50"
+                    className="icon-button"
+                    aria-label={`Hapus ${item.name}`}
                     onClick={() => onRemoveItem(item.id)}
                   >
-                    Remove
+                    <Trash2 size={18} aria-hidden="true" />
                   </button>
                 </div>
-              </div>
+              </article>
             ))}
-
-            <div className="mt-6 rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
-              <div className="mb-4 flex items-center justify-between text-lg font-semibold text-gray-900">
-                <span>Subtotal</span>
-                <span>IDR {subtotal.toLocaleString('id-ID')}</span>
-              </div>
-
-              <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
-                <button
-                  type="button"
-                  className="rounded border border-gray-300 px-4 py-2 font-medium text-gray-700 hover:bg-gray-100"
-                  onClick={onClearCart}
-                >
-                  Clear Cart
-                </button>
-                <button
-                  type="button"
-                  className="rounded bg-[#e86e1c] px-4 py-2 font-medium text-white hover:bg-[#d56115]"
-                  onClick={() => navigate('/contact')}
-                >
-                  Checkout
-                </button>
-              </div>
+          </section>
+          <aside className="cart-summary" aria-labelledby="summary-heading">
+            <p className="eyebrow">THE GOOD STUFF</p>
+            <h2 id="summary-heading">Ringkasan bag</h2>
+            <div className="summary-row">
+              <span>Subtotal</span>
+              <strong aria-live="polite" aria-atomic="true">
+                {formatPrice(subtotal)}
+              </strong>
+            </div>
+            <p>
+              Belum termasuk ongkir. Pembayaran belum tersedia pada pratinjau ini; pesanan belum
+              dibuat.
+            </p>
+            <Link to="/contact" className="button full-width">
+              Info pemesanan <ArrowRight size={18} aria-hidden="true" />
+            </Link>
+            <Link to="/products" className="text-link">
+              Jelajahi koleksi <ArrowUpRight size={16} aria-hidden="true" />
+            </Link>
+          </aside>
+        </div>
+      ) : (
+        <div className="empty-state cart-empty">
+          <ShoppingBag size={46} strokeWidth={1} aria-hidden="true" />
+          <h2>Ruang untuk hal baik.</h2>
+          <p>Bag kamu masih kosong. Mulai dari satu langkah kecil.</p>
+          <Link className="button" to="/products">
+            Temukan perawatanmu <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
+        </div>
+      )}
+      {recommended.length > 0 && (
+        <section className="cart-recommendations" aria-labelledby="recommended-heading">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow muted">A LITTLE MORE CARE</p>
+              <h2 id="recommended-heading">Lengkapi ritualmu.</h2>
             </div>
           </div>
-        )}
-
-        {recommendedProducts.length > 0 && (
-          <section className="mt-10">
-            <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-[#1e3a5f]">You May Also Like</h2>
-              <p className="text-sm text-gray-500">Geser ke kanan untuk melihat lainnya</p>
-            </div>
-
-            <div className="flex gap-4 overflow-x-auto pb-2">
-              {recommendedProducts.map((product) => (
-                <article
-                  key={product.id}
-                  className="min-w-[240px] max-w-[240px] rounded-lg border border-gray-200 bg-white p-4 shadow-sm"
-                >
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="mb-3 h-36 w-full rounded-md object-cover"
-                    referrerPolicy="no-referrer"
-                  />
-                  <h3 className="text-base font-semibold text-gray-900">{product.name}</h3>
-                  <p className="mb-2 text-sm text-gray-500">{product.description}</p>
-                  <p className="mb-3 text-sm font-bold text-gray-900">
-                    IDR {product.price.toLocaleString('id-ID')}
-                  </p>
-                  <button
-                    type="button"
-                    className="w-full rounded bg-[#e86e1c] py-2 text-sm font-medium text-white transition-colors hover:bg-[#d56115]"
-                    onClick={() => onAddToCart(product)}
-                  >
-                    Add to Cart
-                  </button>
-                </article>
-              ))}
-            </div>
-          </section>
-        )}
-      </div>
-      <Footer />
+          <div className="product-grid">
+            {recommended.map((product) => (
+              <ProductCard key={product.id} product={product} onAddToCart={onAddToCart} />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

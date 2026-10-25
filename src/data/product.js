@@ -9,6 +9,9 @@ export const products = [
     description: 'Deep Clean Formula',
     price: 120000,
     image: Lorel,
+    category: 'cleanser',
+    categoryLabel: 'Pembersih wajah',
+    step: '01 / CLEANSE',
   },
   {
     id: 2,
@@ -16,6 +19,9 @@ export const products = [
     description: 'Hydrating & Refreshing',
     price: 150000,
     image: dMoisterImage,
+    category: 'moisturizer',
+    categoryLabel: 'Pelembap',
+    step: '02 / HYDRATE',
   },
   {
     id: 3,
@@ -23,5 +29,18 @@ export const products = [
     description: 'Broad Spectrum Protection',
     price: 180000,
     image: uvImage,
+    category: 'sunscreen',
+    categoryLabel: 'Tabir surya',
+    step: '03 / PROTECT',
   },
 ];
+
+export const categories = [
+  { value: 'all', label: 'Semua produk' },
+  { value: 'cleanser', label: 'Pembersih' },
+  { value: 'moisturizer', label: 'Pelembap' },
+  { value: 'sunscreen', label: 'Tabir surya' },
+  { value: 'health', label: 'Alat kesehatan' },
+];
+
+export const formatPrice = (price) => `Rp${price.toLocaleString('id-ID')}`;

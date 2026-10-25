@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 252 64" fill="none">
+  <title>Magna Care</title>
+  <g stroke="#171816" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M3 42V8l19 28L41 8v34"/>
+    <path d="M57 42 76 8l19 34M64 30h24"/>
+    <path d="M146 14a19 19 0 1 0 0 23V26h-17"/>
+    <path d="M165 42V8l33 34V8"/>
+    <path d="m214 42 17-34 18 34m-29-12h22"/>
+  </g>
+  <text x="174" y="62" fill="#171816" font-family="Arial,sans-serif" font-size="9" letter-spacing="9">CARE</text>
+</svg>
