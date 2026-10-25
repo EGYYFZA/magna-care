@@ -1,43 +1,104 @@
-import { useState } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import { Link } from 'react-router-dom';
+import { ArrowUpRight, Asterisk, Plus } from 'lucide-react';
 
-export default function Contact({ cartItemCount }) {
-  const [isSent, setIsSent] = useState(false);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setIsSent(true);
-    event.currentTarget.reset();
-  };
-
+export default function Contact() {
   return (
-    <div className="min-h-screen bg-[#f8f9fa] font-sans">
-      <Navbar cartItemCount={cartItemCount} />
-      <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-        <h1 className="text-3xl font-bold text-[#1e3a5f] mb-8">Contact Us</h1>
-        <form className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm sm:p-8" onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-            <input type="text" required className="w-full rounded-md border border-gray-300 p-2" />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-            <input type="email" required className="w-full rounded-md border border-gray-300 p-2" />
-          </div>
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-            <textarea rows={4} required className="w-full rounded-md border border-gray-300 p-2"></textarea>
-          </div>
-          <button type="submit" className="rounded bg-[#e86e1c] px-6 py-2 font-medium text-white transition-colors hover:bg-[#d56115]">
-            Send Message
-          </button>
-          {isSent && (
-            <p className="mt-4 text-sm font-medium text-emerald-600">Message sent successfully. We will contact you soon.</p>
-          )}
-        </form>
+    <div className="shell contact-page">
+      <div className="breadcrumb eyebrow">
+        <Link to="/">BERANDA</Link>
+        <span>/</span>
+        <span>BANTUAN</span>
       </div>
-      <Footer />
+      <div className="page-heading">
+        <div>
+          <p className="eyebrow muted">A LITTLE CLARITY, A LITTLE CARE.</p>
+          <h1>
+            Good questions.
+            <br />
+            <span>Thoughtful answers.</span>
+          </h1>
+        </div>
+        <Asterisk size={84} strokeWidth={1} aria-hidden="true" />
+      </div>
+      <div className="contact-grid">
+        <div className="contact-intro">
+          <p className="eyebrow">LET'S GET TO KNOW EACH OTHER.</p>
+          <h2>
+            Ruang untuk
+            <br />
+            mengenal lebih baik.
+          </h2>
+          <p>
+            Magna Care sedang membangun pengalaman belanja skincare dan perawatan harian yang lebih
+            sederhana.
+          </p>
+          <p>
+            Kamu bisa menjelajahi produk dan menyusun bag. Kanal bantuan resmi akan dicantumkan saat
+            layanan toko tersedia.
+          </p>
+          <Link className="text-link" to="/products">
+            Kembali ke koleksi <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
+        </div>
+        <section className="faq-list" aria-label="Pertanyaan yang sering diajukan">
+          <details open>
+            <summary>
+              Apakah saya sudah bisa memesan? <Plus size={19} aria-hidden="true" />
+            </summary>
+            <div>
+              <p>
+                Saat ini website merupakan pratinjau desain. Produk dan harga masih berupa contoh.
+                Menambahkan produk ke bag belum membuat pesanan dan tidak memproses pembayaran.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>
+              Bagaimana dengan pengiriman dan retur? <Plus size={19} aria-hidden="true" />
+            </summary>
+            <div>
+              <p>
+                Biaya, area pengiriman, estimasi waktu, dan kebijakan retur akan ditampilkan setelah
+                operasional toko siap.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>
+              Di mana produk alat kesehatan? <Plus size={19} aria-hidden="true" />
+            </summary>
+            <div>
+              <p>
+                Koleksi alat kesehatan sedang disiapkan. Setiap produk akan dilengkapi informasi
+                model, spesifikasi, manual, dan data izin edar dari sumber resmi.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>
+              Apakah keranjang saya tersimpan? <Plus size={19} aria-hidden="true" />
+            </summary>
+            <div>
+              <p>
+                Bag disimpan di browser pada perangkat ini selama penyimpanan lokal diizinkan.
+                Menghapus data browser juga menghapus bag. Sinkronisasi antarperangkat belum
+                tersedia.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>
+              Apakah tersedia konsultasi? <Plus size={19} aria-hidden="true" />
+            </summary>
+            <div>
+              <p>
+                Jadwal konsultasi belum tersedia. Informasi penyedia layanan dan jadwal akan
+                ditampilkan setelah layanan tersebut siap digunakan.
+              </p>
+            </div>
+          </details>
+        </section>
+      </div>
     </div>
   );
 }

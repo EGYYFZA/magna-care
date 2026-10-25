@@ -20,6 +20,7 @@ export default defineConfig(({mode}) => {
       },
     },
     server: {
+      watch: { ignored: ['**/.preview/**'] },
       hmr: env.DISABLE_HMR !== 'true',
     },
   };
