@@ -1,4 +1,4 @@
-<a href="https://magna-care-one.vercel.app"><img src=".github/media/cover.png" alt="Magna Care — skincare storefront" width="1280"></a>
+<a href="https://magna-care-one.vercel.app"><picture><source media="(prefers-reduced-motion: reduce)" srcset=".github/media/cover.png"><img src=".github/media/preview.gif" alt="Magna Care product gallery on the live website" width="1280"></picture></a>
 
 # Magna Care
 
